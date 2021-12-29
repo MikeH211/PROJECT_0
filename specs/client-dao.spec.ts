@@ -5,7 +5,7 @@ describe ("Client Dao Tests", ()=>{
 
     const clientDao: ClientDAO = new ClientDaoAzure();
     let savedClient:Client = null;
-    let savedAccount:Account = null;
+    let savedAccount:Client = null;
 
     it("Should create a client", async ()=>{
         const client: Client = {fname:"Bobby", lname:"Sprucy", id:'', accounts:[{type:"checking",balance:400}]}
@@ -26,12 +26,7 @@ describe ("Client Dao Tests", ()=>{
         expect(retrivedClient.fname).toBe("Hansel")
     })
 
-    it("should delete a client", async () => {
-        await clientDao.deleteClientById(savedClient.id)
-        expect(async ()=> {
-            await clientDao.getClientById(savedClient.id)
-        }).toBeDefined;
-    })
+  
 
     it("Should get all clients", async () => {
         const retrievedClients: Client[] = await clientDao.getAllClients();
@@ -52,10 +47,18 @@ describe ("Client Dao Tests", ()=>{
     })
 
     it("Add Account to Client", async () => {
-        const client: Client = {fname:"Stewart", lname:"Price", id:'', accounts:[{type:"checking",balance:688}]}
+        // const client: Client = {fname:"Stan", lname:"tree", id:'', accounts:[{type:"checking",balance:688}]}
         const account: Account = {type:"checking",balance:688}
-        savedAccount = await clientDao.addAccountToClient(savedClient.id);
+        savedClient = await clientDao.addAccountToClient(savedClient.id, account);
+        expect(savedClient.accounts.length).toBe(2);
         
+    })
+
+    it("should delete a client", async () => {
+        await clientDao.deleteClientById(savedClient.id)
+        expect(async ()=> {
+            await clientDao.getClientById(savedClient.id)
+        }).toBeDefined;
     })
 
 })

@@ -1,9 +1,8 @@
+
 export interface Account{
     type: string
     balance: number
 }
-
-
 
 export interface Client{
     id: string
