@@ -5,7 +5,7 @@ describe ("Client Dao Tests", ()=>{
 
     const clientDao: ClientDAO = new ClientDaoAzure();
     let savedClient:Client = null;
-    let savedAccount:Client = null;
+    
 
     it("Should create a client", async ()=>{
         const client: Client = {fname:"Bobby", lname:"Sprucy", id:'', accounts:[{type:"checking",balance:400}]}

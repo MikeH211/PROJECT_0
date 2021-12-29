@@ -28,11 +28,11 @@ export class ClientDaoAzure implements ClientDAO{
     
     async addAccountToClient(clientId: string, acct: Account): Promise<Client> {
         const client: Client = await this.getClientById(clientId)
-        //const accounts: Account[] = await this.getAllAccountsByClientId(clientId)
         client.accounts.push(acct)
         await this.updateClient(client)
         return client
     }
+    
     async addClient(client: Client): Promise<Client> {
         client.accounts = client.accounts ?? [];
         client = await this.createClient(client);
